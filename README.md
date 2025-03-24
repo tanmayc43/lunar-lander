@@ -83,10 +83,6 @@ The agent is evaluated over 100 episodes:
 - Execution time must be under 100 seconds
 - File sizes must not exceed 1 MB
 
-## Authors
-
-[Your Name/Group]
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
