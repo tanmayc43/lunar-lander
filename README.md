@@ -94,6 +94,8 @@ After running the evaluation using `evaluate_agent.py` over 100 episodes, the ag
 
 *Figure: Reward history over 100 episodes showing consistent performance*
 
+
+
 ![Statistics](results/console.png)
 
 *Figure: Maximum, minimum, and average rewards over 100 episodes*
