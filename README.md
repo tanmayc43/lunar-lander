@@ -96,9 +96,6 @@ After running the evaluation using `evaluate_agent.py` over 100 episodes, the ag
 ![Statistics](results/console.png)
 *Figure: Maximum, minimum, and average rewards over 100 episodes*
 
-#### Agent Behavior
-
-*Figure: Example of a successful landing sequence*
 
 ### Key Metrics
 - Peak performance: ~315 reward
