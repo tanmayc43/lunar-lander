@@ -91,18 +91,20 @@ After running the evaluation using `evaluate_agent.py` over 100 episodes, the ag
 
 #### Training Performance
 ![Reward History](results/rewards_plot_20250324_203319.png)
+
 *Figure: Reward history over 100 episodes showing consistent performance*
 
 ![Statistics](results/console.png)
+
 *Figure: Maximum, minimum, and average rewards over 100 episodes*
 
 
 ### Key Metrics
 - Peak performance: ~315 reward
-- Minimum performance: ~250 reward
+- Average of 100 iterations is usually around 270-280 points.
 - Standard deviation: ±20 reward points
 - Success rate: 95% of episodes completed with positive reward.
-- Average of 100 iterations is usually around 270-280 points.
+
 
 ## Constraints Followed
 - train_agent.py is compatible with evaluate_agent.py
