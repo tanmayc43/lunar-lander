@@ -2,6 +2,8 @@
 
 This project implements an AI agent to play the Lunar Lander game using Proximal Policy Optimization (PPO) algorithm from Stable Baselines3.
 
+![Lunar Lander Demo](results/lunar_lander_20250324_203319.gif)
+
 ## Project Description
 
 The Lunar Lander game is a classic control problem where an agent needs to safely land a spacecraft on a landing pad. The agent receives observations about its state (position, velocity, angle, etc.) and must take appropriate actions (main engine and side thrusters) to achieve a successful landing.
@@ -13,6 +15,7 @@ The Lunar Lander game is a classic control problem where an agent needs to safel
 - Gymnasium (formerly OpenAI Gym)
 - Stable Baselines3
 - NumPy
+- Matplotlib
 - SWIG >= 4.1
 - Shimmy >= 2.0
 
@@ -24,10 +27,7 @@ You can install all required dependencies using the provided requirements.txt fi
 pip install -r requirements.txt
 ```
 
-Alternatively, you can install packages individually:
-```bash
-pip install torch gymnasium stable-baselines3 numpy 'shimmy>=2.0'
-```
+Alternatively, you can install all the packages individually.
 
 ## Project Structure
 
@@ -38,7 +38,10 @@ lunar-lander/
 ├── my_policy.py          # Implementation of the PPO policy
 ├── best_policy.npy       # Saved model parameters
 ├── requirements.txt      # Project dependencies
-└── evaluate.bat          # Batch file to run evaluation
+├── evaluate.bat          # Batch file to run evaluation
+└── results/              # Visualization outputs
+    ├── gif/            # Landing sequence recording
+    └── plot/           # Performance plot
 ```
 
 ## How to Run
@@ -84,8 +87,27 @@ After running the evaluation using `evaluate_agent.py` over 100 episodes, the ag
 - Consistent successful landings
 - Stable performance across multiple runs
 
-## Constraints
+### Visualizations
 
-- Agent must be compatible with evaluate_agent.py
-- Execution time must be under 100 seconds
-- File sizes must not exceed 1 MB
+#### Training Performance
+![Reward History](results/rewards_plot_20250324_203319.png)
+*Figure: Reward history over 100 episodes showing consistent performance*
+
+![Statistics](results/console.png)
+*Figure: Maximum, minimum, and average rewards over 100 episodes*
+
+#### Agent Behavior
+
+*Figure: Example of a successful landing sequence*
+
+### Key Metrics
+- Peak performance: ~315 reward
+- Minimum performance: ~250 reward
+- Standard deviation: ±20 reward points
+- Success rate: 95% of episodes completed with positive reward.
+- Average of 100 iterations is usually around 270-280 points.
+
+## Constraints Followed
+- train_agent.py is compatible with evaluate_agent.py
+- Execution time of evaluate_agent.py is under 100 seconds.
+- File sizes do not exceed 1 MB.
