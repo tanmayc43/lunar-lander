@@ -2,6 +2,8 @@ import gymnasium as gym
 import numpy as np
 import argparse
 import importlib
+import torch
+from my_policy import PPOActorCritic  
 
 def evaluate_policy(policy, policy_action, total_episodes=100, render_first=5):
     total_reward = 0.0
@@ -36,7 +38,11 @@ def main():
     args = parser.parse_args()
 
     # Load the policy parameters from the file.
-    policy = np.load(args.filename)
+    state_dim = 8  # LunarLander observation space size
+    action_dim = 4  # LunarLander has 4 discrete actions
+    policy = PPOActorCritic(state_dim, action_dim)
+    policy.load_state_dict(torch.load(args.filename))
+    policy.eval()
     
     # Dynamically import the module that defines policy_action.
     try:

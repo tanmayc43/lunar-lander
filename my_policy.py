@@ -1,26 +1,33 @@
-import numpy as np
-import gymnasium as gym
+import torch
+import torch.nn as nn
 
-class LunarLanderPolicy:
-    def __init__(self, policy_file):
-        self.policy = np.load(policy_file)
+class PPOActorCritic(nn.Module):
+    def __init__(self, state_dim, action_dim, hidden_size=64):
+        super(PPOActorCritic, self).__init__()
+        self.shared = nn.Sequential(
+            nn.Linear(state_dim, hidden_size),
+            nn.ReLU(),
+        )
+        self.actor = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, action_dim)
+        )
+        self.critic = nn.Sequential(
+            nn.Linear(hidden_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, 1)
+        )
+        
+    def forward(self, x):
+        shared_out = self.shared(x)
+        logits = self.actor(shared_out)
+        value = self.critic(shared_out)
+        return logits, value
 
-    def get_action(self, state):
-        return np.argmax(np.dot(self.policy, state))  # Choose best action
-
-def main():
-    env = gym.make("LunarLander-v3", render_mode="human")
-    policy = LunarLanderPolicy("best_policy.npy")
-
-    for _ in range(5):  # Run 5 episodes
-        state, _ = env.reset()
-        done = False
-        while not done:
-            action = policy.get_action(state)
-            state, _, terminated, truncated, _ = env.step(action)
-            done = terminated or truncated
-
-    env.close()
-
-if __name__ == "__main__":
-    main()
+# Define `policy_action` function that the evaluator expects
+def policy_action(policy, observation):
+    state_tensor = torch.FloatTensor(observation).unsqueeze(0)
+    logits, _ = policy(state_tensor)
+    action = torch.argmax(logits).item()  # Select the action with the highest probability
+    return action
